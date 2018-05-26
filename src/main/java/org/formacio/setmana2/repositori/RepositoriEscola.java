@@ -5,6 +5,9 @@ import org.formacio.setmana2.domini.Matricula;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 /**
  * Modifica aquesta classe per tal que sigui un component Spring que realitza les 
  * operacions de persistencia tal com indiquen les firmes dels metodes
@@ -13,9 +16,16 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RepositoriEscola {
 
+	@PersistenceContext
+	EntityManager em;
 	
 	public Curs carregaCurs(String nom) {
+		Curs curs = em.find(Curs.class, nom);
+		if(curs != null){
+			return curs;
+		}
 		return null;
+
 	}
 	
 	
